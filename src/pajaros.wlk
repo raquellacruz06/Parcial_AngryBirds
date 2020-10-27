@@ -64,17 +64,18 @@ object isla{
 	const pajaros = []
 	var cerditosInvadidos = 0
 	var homenajeados = []
-	method cantidadDeVecesAOcurrir()= (cerditosInvadidos / 100).truncate(0)
+	var eventosDesafortunados = []
+	method pajaros()= pajaros
+	//PUNTO 1C
 	method obtenerPajarosFuertes()= pajaros.filter({pajaro => pajaro.fuerza()> 50})
+	// PUNTO 1D
 	method fuerza()= self.obtenerPajarosFuertes().sum({pajaro => pajaro.fuerza()> 50})
-	method sesionDeManejoDeLaIra(){
-		pajaros.forEach({pajaro=> pajaro.disminuirIra()})
-	}
-	method invasionDeCerditos(){
-		self.cantidadDeVecesAOcurrir().times(pajaros.forEach({pajaro => pajaro.enojarse()}))
-		
-	}
-	}
+	
+	method cerditosInvadidos()= cerditosInvadidos
+	
+	method serieDeEventosDesafortunados(){
+		eventosDesafortunados.forEach({evento=> evento.suceder(self)})
+	}}
 	
 	
 	/*method homenajeados()= find
@@ -84,3 +85,19 @@ object isla{
 	}
 	
 }*/
+
+object sesionManejoDeIra{
+	method suceder(isla){
+		isla.pajaros().forEach({pajaro=> pajaro.disminuirIra()})}
+}
+
+object invasionDeCerditos{
+	method cantidadDeVecesAOcurrir(isla)= (isla.cerditosInvadidos() / 100).truncate(0)
+	method suceder(isla){
+		isla.cantidadDeVecesAOcurrir().times(isla.pajaros().forEach({pajaro => pajaro.enojarse()}))}
+}
+
+object fiestaSorpresa{
+	method suceder(isla){}
+}
+
