@@ -1,0 +1,23 @@
+import composicion.*
+
+describe "propinas" {
+	test "un cliente común paga un 10% de propina" {
+		const clienteComun = new Cliente(propina=comun)
+		assert.equals(1100, clienteComun.cuantoPaga(1000))
+	}
+	
+	test "un cliente amarrete no da propina" {
+		const clienteAmarrete = new Cliente(propina=amarrete)
+		assert.equals(1000, clienteAmarrete.cuantoPaga(1000))
+	}
+	
+	test "un cliente comedido paga un 20% de propina si ésta no supera su monto máximo" {
+		const clienteConBolsillo = new Cliente(propina=new Comedido(montoMaximo=1200))
+		assert.equals(1200, clienteConBolsillo.cuantoPaga(1000))
+	}
+	
+	test "un cliente comedido paga su monto máximo de propina si el 20% lo excede" {
+		const clienteConBolsillo = new Cliente(propina=new Comedido(montoMaximo=10))
+		assert.equals(1010, clienteConBolsillo.cuantoPaga(1000))
+	}
+}

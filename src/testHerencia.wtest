@@ -1,0 +1,23 @@
+import herencia.*
+
+describe "propinas" {
+	test "un cliente común paga un 10% de propina" {
+		const clienteComun = new ClienteComun()
+		assert.equals(1100, clienteComun.cuantoPaga(1000))
+	}
+	
+	test "un cliente amarrete no da propina" {
+		const clienteAmarrete = new ClienteAmarrete()
+		assert.equals(1000, clienteAmarrete.cuantoPaga(1000))
+	}
+	
+	test "un cliente comedido paga un 20% de propina si ésta no supera su monto máximo" {
+		const clienteAmarrete = new ClienteComedido(montoMaximo=1200)
+		assert.equals(1200, clienteAmarrete.cuantoPaga(1000))
+	}
+	
+	test "un cliente comedido paga su monto máximo de propina si el 20% lo excede" {
+		const clienteAmarrete = new ClienteComedido(montoMaximo=10)
+		assert.equals(1010, clienteAmarrete.cuantoPaga(1000))
+	}
+}
